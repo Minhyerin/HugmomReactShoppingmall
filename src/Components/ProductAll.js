@@ -38,7 +38,7 @@ const ProductAll = () => {
   const [query, setQuery] = useSearchParams(); // url값, url업데이트 함수
   const getProduct = async () => {
     let searchQuery = query.get("q") || ""; //get을 사용하여 q뒤의 값을 가져온다.
-    let url = `http://localhost:3004/products?q=${searchQuery}`;
+    let url = `https://my-json-server.typicode.com/Minhyerin/reactshoppingmall?q=${searchQuery}`;
     let response = await fetch(url);
     let data = await response.json();
     console.log(data);
