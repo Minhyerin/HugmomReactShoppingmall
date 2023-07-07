@@ -9,6 +9,10 @@ const Container = styled.div`
   flex-direction: column;
   gap: 10px;
   cursor: pointer;
+  @media screen and (max-width: 768px) {
+    width: 45%;
+    height: 370px;
+  }
 `;
 const ProductImg = styled.div`
   position: relative;
@@ -35,6 +39,10 @@ const ProductImg = styled.div`
     &:hover {
       transform: scale(1.1);
     }
+  }
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    height: 230px;
   }
 `;
 const HotButton = styled.div`

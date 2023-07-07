@@ -5,12 +5,15 @@ import ProductCard from "./ProductCard";
 import BannerSlide from "./BannerSlide";
 
 const Contianer = styled.div`
-  width: 100vw;
+  width: 100%;
   margin-top: 1px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: 768px) {
+    width: 100vw;
+  }
 `;
 const ProductTitle = styled.div`
   width: 100%;
@@ -23,6 +26,9 @@ const ProductTitle = styled.div`
     font-size: 24px;
     margin-bottom: -10px;
   }
+  @media screen and (max-width: 768px) {
+    width: 100vw;
+  }
 `;
 const ProductCardWrapper = styled.div`
   margin-top: 30px;
@@ -31,6 +37,10 @@ const ProductCardWrapper = styled.div`
   justify-content: center;
   flex-wrap: wrap;
   gap: 20px;
+  @media screen and (max-width: 768px) {
+    width: 100vw;
+    gap: 10px;
+  }
 `;
 
 const ProductAll = () => {

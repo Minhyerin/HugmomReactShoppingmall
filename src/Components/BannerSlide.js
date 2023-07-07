@@ -30,6 +30,9 @@ const Background = styled.div`
       color: rgba(0, 0, 0, 0.8);
     }
   }
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 /* bg img slider */
@@ -38,6 +41,7 @@ const SlideBtn = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 100;
 `;
 
 const ImgContainer = styled.div`
@@ -54,34 +58,43 @@ const ImgBox = styled.div`
     height: 100%;
     object-fit: cover;
   }
+  @media screen and (max-width: 768px) {
+    width: 100vw;
+  }
 `;
 
-
-
 const BannerSlide = () => {
+  // 화면의 가로 길이
+  const w = window.innerWidth;
+
   /* bg img Array */
-const bgArr = [
-  {
-    id: 0,
-    img: "https://hugmom-b6187.web.app/img/01-main_banner_slide_img_1.png"
-  },
-  {
-    id: 1,
-    img: "https://hugmom-b6187.web.app/img/01-main_banner_slide_img_2.png"
-  },
-  {
-    id: 2,
-    img: "https://hugmom-b6187.web.app/img/01-main_banner_slide_img_3.png"
-  },
-  {
-    id: 3,
-    img: "https://hugmom-b6187.web.app/img/01-main_banner_slide_img_4.png"
-  },
-  {
-    id: 4,
-    img: "https://hugmom-b6187.web.app/img/01-main_banner_slide_img_5.png"
-  }
-];
+  const bgArr = [
+    {
+      id: 0,
+      img: "https://hugmom-b6187.web.app/img/01-main_banner_slide_img_1.png",
+      mimg: "https://hugmom-b6187.web.app/img/01-main_banner_slide_mobile_img_1.png",
+    },
+    {
+      id: 1,
+      img: "https://hugmom-b6187.web.app/img/01-main_banner_slide_img_2.png",
+      mimg: "https://hugmom-b6187.web.app/img/01-main_banner_slide_mobile_img_2.png",
+    },
+    {
+      id: 2,
+      img: "https://hugmom-b6187.web.app/img/01-main_banner_slide_img_3.png",
+      mimg: "https://hugmom-b6187.web.app/img/01-main_banner_slide_mobile_img_3.png",
+    },
+    {
+      id: 3,
+      img: "https://hugmom-b6187.web.app/img/01-main_banner_slide_img_4.png",
+      mimg: "https://hugmom-b6187.web.app/img/01-main_banner_slide_mobile_img_4.png",
+    },
+    {
+      id: 4,
+      img: "https://hugmom-b6187.web.app/img/01-main_banner_slide_img_5.png",
+      mimg: "https://hugmom-b6187.web.app/img/01-main_banner_slide_mobile_img_5.png",
+    },
+  ];
 
   const [slideIndex, setSlideIndex] = useState(1);
   const [slideInterval, setSlideInterval] = useState(6000); // slideInterval 6 secs
@@ -94,13 +107,21 @@ const bgArr = [
 
   let slideArr = [beforeSlide, ...bgArr, afterSlide]; // create slide array (last, origin(first,...,last) ,first) for infinite slide show
   const SLIDE_NUM = slideArr.length;
+  let bannerW = "";
+  if (w > 768) {
+    bannerW = 1500 * SLIDE_NUM + "px";
+  } else {
+    bannerW = 100 * SLIDE_NUM + "vw";
+  }
+  console.log(bannerW);
+
   const useInterval = (callback, interval) => {
     const savedCallback = useRef(null);
-  
+
     useEffect(() => {
       savedCallback.current = callback;
     }, [callback]);
-  
+
     useEffect(() => {
       function tick() {
         if (savedCallback.current) {
@@ -116,12 +137,12 @@ const bgArr = [
   useInterval(() => setSlideIndex((prev) => prev + 1), slideInterval); // auto slide show with slideInterval
 
   /* InfiniteSlideHandler attachs last/first imgs with origin last/first imgs to make slide seem infinite */
-  const InfiniteSlideHandler = (flytoIndex) => {
+  const InfiniteSlideHandler = (toIndex) => {
     setTimeout(() => {
       if (slideRef.current) {
         slideRef.current.style.transition = "";
       }
-      setSlideIndex(flytoIndex);
+      setSlideIndex(toIndex);
       setTimeout(() => {
         if (slideRef.current) {
           slideRef.current.style.transition = "all 500ms ease-in-out";
@@ -173,7 +194,7 @@ const bgArr = [
         <ImgContainer
           ref={slideRef}
           style={{
-            width: `${1500 * SLIDE_NUM}px`,
+            width: `${bannerW}`,
             transition: "all 500ms ease-in-out",
             transform: `translateX(${
               -1 * ((100 / slideArr.length) * slideIndex)
@@ -182,7 +203,11 @@ const bgArr = [
         >
           {slideArr.map((item, index) => (
             <ImgBox key={index}>
-              <img src={item.img} />
+              {bannerW === "10500px" ? (
+                <img src={item.img} />
+              ) : (
+                <img src={item.mimg} />
+              )}
             </ImgBox>
           ))}
         </ImgContainer>
@@ -197,8 +222,6 @@ const bgArr = [
       </Background>
     </>
   );
-}
+};
 
 export default BannerSlide;
-
-

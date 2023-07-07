@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShareNodes } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAdd,
+  faMinus,
+  faShareNodes,
+} from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
 
 const Container = styled.div`
@@ -16,23 +20,53 @@ const ProductDetailWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: 768px) {
+    width: 100vw;
+    flex-direction: column;
+  }
 `;
 const Header = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
   gap: 50px;
-  border: 1px solid #eee;
+  @media screen and (max-width: 768px) {
+    width: 100vw;
+    flex-direction: column;
+    gap: 20px;
+  }
 `;
 const ProductImg = styled.div`
   width: 400px;
   img {
     width: 100%;
   }
+  @media screen and (max-width: 768px) {
+    width: 100vw;
+  }
 `;
 const ProductInfo = styled.div`
   diplay: flex;
+  flex-direction: column;
   width: 500px;
+  padding: 0 5px;
+  @media screen and (max-width: 768px) {
+    width: 100vw;
+  }
+  .desc {
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      li {
+        margin-bottom: 10px;
+        span {
+          display: inline-block;
+          width: 150px;
+        }
+      }
+    }
+  }
   .title {
     display: flex;
     align-items: center;
@@ -81,7 +115,74 @@ const HotButton = styled.div`
   margin-top: 5px;
 `;
 
+const Select = styled.div`
+  margin-top: 50px;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  padding: 5px;
+  select {
+    width: 100%;
+    border: none;
+    color: #72981e;
+    font-weight: 500;
+    font-size: 16px;
+    &:focus {
+      outline: none;
+    }
+  }
+`;
+
+const SelectCount = styled.div`
+  margin-top: 30px;
+  background-color: #eee;
+  border-radius: 5px;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+const CountBox = styled.div`
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  padding: 0 7px;
+  font-size: 14px;
+  font-weight: 300;
+  div {
+    font-size: 20px;
+  }
+`;
+const Price = styled.div`
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  line-height: 24px;
+  span {
+    font-size: 18px;
+    font-weight: normal;
+  }
+`;
+
 const ProductDetail = () => {
+  const [num, setNum] = useState(1);
+  const [priceCount, setPriceCount] = useState(0);
+  const decrease = () => {
+    setNum(num - 1);
+    if (num == 1) {
+      setNum(1);
+      alert("1개이상 선택해야합니다.");
+      return;
+    }
+  };
+
+  const increase = () => {
+    setNum(num + 1);
+  };
+
   let { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -118,26 +219,39 @@ const ProductDetail = () => {
                 <FontAwesomeIcon color="#333" icon={faShareNodes} />
               </div>
             </div>
-            <div>
-              <p>
-                <span>배송</span>
-                <span>허그맘 하루배송</span>
-              </p>
-              <p>
-                <span>판매처</span>
-                <span>허그맘</span>
-              </p>
-              <div>
-                <select>
-                  <option selected="true" disabled="true">
-                    옵션을 선택하세요
-                  </option>
-                  {product.size.map((opt) => (
-                    <option>{opt}</option>
-                  ))}
-                </select>
-              </div>
+            <div className="desc">
+              <ul>
+                <li>
+                  <span>배송</span>
+                  <span>허그맘 하루배송</span>
+                </li>
+                <li>
+                  <span>판매처</span>
+                  <span>허그맘</span>
+                </li>
+              </ul>
             </div>
+            <Select>
+              <select>
+                <option selected="true" disabled="true">
+                  옵션을 선택하세요
+                </option>
+                {product.size.map((opt) => (
+                  <option>{opt}</option>
+                ))}
+              </select>
+            </Select>
+            <SelectCount>
+              <CountBox>
+                <FontAwesomeIcon icon={faMinus} onClick={() => decrease()} />
+                <div>{num}</div>
+                <FontAwesomeIcon icon={faAdd} onClick={() => increase()} />
+              </CountBox>
+              <Price>
+                {product.price * num}
+                <span>원</span>
+              </Price>
+            </SelectCount>
           </ProductInfo>
         </Header>
       </ProductDetailWrapper>
