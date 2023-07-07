@@ -105,7 +105,7 @@ const BannerSlide = () => {
   const beforeSlide = bgArr[BG_NUM - 1];
   const afterSlide = bgArr[0];
 
-  let slideArr = [beforeSlide, ...bgArr, afterSlide]; // create slide array (last, origin(first,...,last) ,first) for infinite slide show
+  let slideArr = [beforeSlide, ...bgArr, afterSlide]; // 슬라이드 연결 마지막 ...오리지널슬라이드 첫번째슬라이드
   const SLIDE_NUM = slideArr.length;
   let bannerW = "";
   if (w > 768) {
