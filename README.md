@@ -5,7 +5,7 @@
 
 
 ## Deployment 배포 주소
-The project is deployed and can viewed live at [here](https://hyerin-hugmom.netlify.app/) <br/>
+The project is deployed and can viewed live at [here](https://hyerin-hugmom.netlify.app/)
 프로젝트가 배포되었으며 [여기](https://hyerin-hugmom.netlify.app/)에서 라이브로 볼 수 있습니다.
 
 
