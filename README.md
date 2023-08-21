@@ -2,7 +2,6 @@
 허그맘 팀프로젝트를 React 를 사용하여 재구성 해 본 토이프로젝트 입니다.
 
 
-
 ## Deployment (배포 주소)
 The project is deployed and can viewed live at [here](https://hyerin-hugmom.netlify.app/)
 
@@ -11,6 +10,19 @@ The project is deployed and can viewed live at [here](https://hyerin-hugmom.netl
 ## Images
 
 ## Technologies Used (사용된 기술)
+<ul>
+  <li>
+    <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"/>  
+  </li>
+  <li>
+    <img src="https://img.shields.io/badge/StyledComponents-DB7093?style=flat-square&logo=styledcomponents&logoColor=white"/>    
+  </li>
+  <li>
+    React-router-dom
+  <li>
+    @fortawesome
+  </li>
+</ul>
 
 
 
